@@ -5,7 +5,7 @@
     <li><a href="{{ url_for('login') }}">Login</a></li>
     <li><a href="{{ url_for('register') }}">Register</a></li>
     {% endif %}
-    {% if user and user['admin'] and not user['expert'] %}
+    {% if user and not user['admin'] and not user['expert'] %}
     <li><a href="{{ url_for('ask') }}">Ask Question</a></li>
     {% endif %}
     {% if user and user['expert'] %}
@@ -17,5 +17,5 @@
     {% if user %}
     <li><a href="{{ url_for('logout') }}">Logout</a></li>
     {% endif %}
-  </ul>
+</ul>
 {% endmacro %}
