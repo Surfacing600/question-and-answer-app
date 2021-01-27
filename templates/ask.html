@@ -1,9 +1,10 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% from "show_links.html" import show_links %}
+
 {% block title %}Ask{% endblock %}
 
 {% block nav %}
-{{show_links(user)}}
+{{ show_links(user) }}
 {% endblock %}
 
 {% block body %}
@@ -14,7 +15,7 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="well bs-component">
-            <form class="form-horizontal" action="/ask" method='POST'>
+            <form class="form-horizontal" action="/ask" method="POST">
               <fieldset>
                 <div class="form-group">
                   <label for="textArea" class="col-lg-2 control-label">Question</label>
@@ -28,7 +29,7 @@
                     <div class="col-lg-10">
                       <select class="form-control" name="expert" id="select">
                         {% for expert in experts %}
-                        <option value = "{{ expert['id'] }}">{{ expert['name'] }}</option>
+                        <option value="{{ expert['id'] }}">{{ expert['name'] }}</option>
                         {% endfor %}
                       </select>
                     </div>

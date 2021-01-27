@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = b"\x83\xb4\x93'\xe9:\xadz/\x00\xe4\x0cT\xbc\xbcU4\xd8\x90c\x1b\xbb\x18\xa5"
+app.config['SECRET_KEY'] = os.urandom(24)
 
 @app.teardown_appcontext
 def close_db(error):
