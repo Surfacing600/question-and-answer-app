@@ -3,7 +3,7 @@ import psycopg2
 from psycopg2.extras import DictCursor
 
 def connect_db():
-    conn = psycopg2.connect('postgres://zoozknakxgrwhq:ea45dc1eb54e5c54a094154f775d68a621d0193862893d08c84b7cf1c8ad83b0@ec2-52-72-190-41.compute-1.amazonaws.com:5432/ddashsk37vtpjb', cursor_factory=DictCursor)
+    conn = psycopg2.connect('postgres://fqfjrrjaoijwlh:facdfedceedf8860b0e5142825eec39eded911180a11faf360a91ed8ce103c38@ec2-54-242-120-138.compute-1.amazonaws.com:5432/d5mbda7cr5bb8o', cursor_factory=DictCursor)
     conn.autocommit = True
     sql = conn.cursor()
     return conn, sql
