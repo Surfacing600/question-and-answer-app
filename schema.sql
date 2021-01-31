@@ -1,9 +1,9 @@
 create table users (
     id serial primary key,
-    namee text not null,
+    name text not null,
     password text not null,
     expert boolean not null,
-    adminn boolean not null 
+    admin boolean not null 
 );
 
 create table questions (

@@ -22,7 +22,7 @@ def get_current_user():
         user = session['user']
 
         db = get_db()
-        db.execute('select id, namee, password, expert, adminn from users where namee = %s', (user, ))
+        db.execute('select id, name, password, expert, admin from users where name = %s', (user, ))
         user_result = db.fetchone()
 
     return user_result
@@ -35,8 +35,8 @@ def index():
     db.execute('''select 
                                       questions.id as question_id, 
                                       questions.question_text, 
-                                      askers.namee as asker_name, 
-                                      experts.namee as expert_name 
+                                      askers.name as asker_name, 
+                                      experts.name as expert_name 
                                   from questions 
                                   join users as askers on askers.id = questions.asked_by_id 
                                   join users as experts on experts.id = questions.expert_id 
@@ -53,14 +53,14 @@ def register():
     if request.method == 'POST':
 
         db = get_db()
-        db.execute('select id from users where namee = %s', (request.form['name'], ))
+        db.execute('select id from users where name = %s', (request.form['name'], ))
         existing_user = db.fetchone()
 
         if existing_user:
             return render_template('register.html', user=user, error='User already exists!')
 
         hashed_password = generate_password_hash(request.form['password'], method='sha256')
-        db.execute('insert into users (namee, password, expert, adminn) values (%s, %s, %s, %s)', (request.form['name'], hashed_password, '0', '0', ))
+        db.execute('insert into users (name, password, expert, admin) values (%s, %s, %s, %s)', (request.form['name'], hashed_password, '0', '0', ))
 
         session['user'] = request.form['name']
 
@@ -79,7 +79,7 @@ def login():
         name = request.form['name']
         password = request.form['password']
 
-        db.execute('select id, namee, password from users where namee = %s', (name, ))
+        db.execute('select id, name, password from users where name = %s', (name, ))
         user_result = db.fetchone()
 
         if user_result:
@@ -102,8 +102,8 @@ def question(question_id):
     db.execute('''select 
                                      questions.question_text, 
                                      questions.answer_text, 
-                                     askers.namee as asker_name, 
-                                     experts.namee as expert_name 
+                                     askers.name as asker_name, 
+                                     experts.name as expert_name 
                                  from questions 
                                  join users as askers on askers.id = questions.asked_by_id 
                                  join users as experts on experts.id = questions.expert_id 
@@ -149,7 +149,7 @@ def ask():
 
         return redirect(url_for('index'))
 
-    db.execute('select id, namee from users where expert = True')
+    db.execute('select id, name from users where expert = True')
     expert_results = db.fetchall()
 
     return render_template('ask.html', user=user, experts=expert_results)
@@ -166,7 +166,7 @@ def unanswered():
 
     db = get_db()
 
-    db.execute('''select questions.id, questions.question_text, users.namee 
+    db.execute('''select questions.id, questions.question_text, users.name 
                                   from questions 
                                   join users on users.id = questions.asked_by_id 
                                   where questions.answer_text is null and questions.expert_id = %s''', (user['id'], ))
@@ -186,7 +186,7 @@ def users():
         return redirect(url_for('index'))
 
     db = get_db()
-    db.execute('select id, namee, expert, adminn from users')
+    db.execute('select id, name, expert, admin from users')
     users_results = db.fetchall()
 
     return render_template('users.html', user=user, users=users_results)
