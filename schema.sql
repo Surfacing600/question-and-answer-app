@@ -1,6 +1,6 @@
 create table users (
     id serial primary key,
-    name text not null,
+    namee text not null,
     password text not null,
     expert boolean not null,
     adminn boolean not null 
