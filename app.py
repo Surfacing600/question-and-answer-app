@@ -22,7 +22,7 @@ def get_current_user():
         user = session['user']
 
         db = get_db()
-        db.execute('select id, name, password, expert, admin from users where name = %s', (user, ))
+        db.execute('select id, name, password, expert, adminn from users where name = %s', (user, ))
         user_result = db.fetchone()
 
     return user_result
@@ -186,7 +186,7 @@ def users():
         return redirect(url_for('index'))
 
     db = get_db()
-    db.execute('select id, name, expert, admin from users')
+    db.execute('select id, name, expert, adminn from users')
     users_results = db.fetchall()
 
     return render_template('users.html', user=user, users=users_results)

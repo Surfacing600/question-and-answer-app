@@ -3,7 +3,7 @@ create table users (
     name text not null,
     password text not null,
     expert boolean not null,
-    admin boolean not null 
+    adminn boolean not null 
 );
 
 create table questions (
